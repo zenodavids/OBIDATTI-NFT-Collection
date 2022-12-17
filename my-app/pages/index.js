@@ -1,7 +1,6 @@
 import { Contract, providers, utils } from 'ethers'
 import Head from 'next/head'
 import React, { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
 import Web3Modal from 'web3modal'
 import { abi, NFT_CONTRACT_ADDRESS } from '../constants'
 import styles from '../styles/Home.module.css'
@@ -12,6 +11,20 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import BeatLoader from 'react-spinners/BeatLoader'
 
+const CustomToastWithLink = () => (
+  <div>
+    <a
+      href='https://metamask.io/download/'
+      target='_blank'
+      style={{ letterSpacing: '2', alignSelf: 'center' }}
+    >
+      You will need METAMASK to run a successful Transaction. Don't have
+      METAMASK installed? Click here to{' '}
+      <span style={{ color: '#2ae267' }}>DOWNLOAD</span> 🦊 Metamask now!
+    </a>
+  </div>
+)
+
 export default function Home() {
   // walletConnected keep track of whether the user's wallet is connected or not
   const [walletConnected, setWalletConnected] = useState(false)
@@ -21,8 +34,6 @@ export default function Home() {
   const [tokenIdsMinted, setTokenIdsMinted] = useState('0')
   // Create a reference to the Web3 Modal (used for connecting to Metamask) which persists as long as the page is open
   const web3ModalRef = useRef()
-  // to disable duplicating the react-toastify
-  const toastId = useRef(null)
 
   /**
    * publicMint: Mint an NFT
@@ -125,23 +136,28 @@ export default function Home() {
   useEffect(() => {
     // Check if window width is less than 500
     if (window.innerWidth < 1024) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.warn(
-          'To Connect your Wallet, Please Use a Laptop or Desktop.',
-          {
-            position: 'top-right',
-            autoClose: 10000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          }
-        )
-      }
-
+      toast.warn('To Connect your Wallet, Please Use a Laptop or Desktop.', {
+        position: 'top-right',
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      })
       // alert('To Connect your Wallet, Use a Laptop or Desktop.')
+    } else {
+      toast.success(CustomToastWithLink, {
+        position: 'top-center',
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'dark',
+      })
     }
   }, [])
   // ==============================
@@ -233,13 +249,21 @@ export default function Home() {
       </Head>
       <div className={styles.main}>
         <ToastContainer
+          style={{
+            width: '90%',
+            fontFamily: "'Josefin Sans' !important",
+            letterSpacing: '2 !important',
+            alignContent: 'center !important',
+            justifyItems: 'center !important',
+            justifyContent: 'center !important',
+          }}
           position='top-right'
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
           closeOnClick
           rtl={false}
-          icon='👷🏽‍♂️'
+          icon={<GiFist style={{ color: '#2ae267', fontSize: '30px' }} />}
           pauseOnFocusLoss
           draggable
           pauseOnHover
