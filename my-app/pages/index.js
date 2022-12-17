@@ -8,7 +8,8 @@ import styles from '../styles/Home.module.css'
 import { ImLink, ImTwitter, ImLinkedin2 } from 'react-icons/im'
 import { BsArrowDown } from 'react-icons/bs'
 import { GiFist } from 'react-icons/gi'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import BeatLoader from 'react-spinners/BeatLoader'
 
 export default function Home() {
@@ -20,6 +21,8 @@ export default function Home() {
   const [tokenIdsMinted, setTokenIdsMinted] = useState('0')
   // Create a reference to the Web3 Modal (used for connecting to Metamask) which persists as long as the page is open
   const web3ModalRef = useRef()
+  // to disable duplicating the react-toastify
+  const toastId = useRef(null)
 
   /**
    * publicMint: Mint an NFT
@@ -122,7 +125,23 @@ export default function Home() {
   useEffect(() => {
     // Check if window width is less than 500
     if (window.innerWidth < 1024) {
-      alert('To Connect your Wallet,\n Use a Laptop / Desktop.\n')
+      if (!toast.isActive(toastId.current)) {
+        toastId.current = toast.warn(
+          'To Connect your Wallet, Please Use a Laptop or Desktop.',
+          {
+            position: 'bottom-center',
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'dark',
+          }
+        )
+      }
+
+      // alert('To Connect your Wallet, Use a Laptop or Desktop.')
     }
   }, [])
   // ==============================
@@ -213,6 +232,18 @@ export default function Home() {
         <link rel='icon' href='/favicon.png' />
       </Head>
       <div className={styles.main}>
+        <ToastContainer
+          position='bottom-center'
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          icon='👷🏽‍♂️'
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <div className={styles.content}>
           <img className={styles.logo} src='./assets/logo.png' />
           <h1 className={styles.title}>
