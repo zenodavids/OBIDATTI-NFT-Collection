@@ -104,11 +104,11 @@ export default function Home() {
     const web3Provider = new providers.Web3Provider(provider)
 
     // If user is not connected to the Polygon network, let them know and throw an error
-    const { chainId } = await web3Provider.getNetwork()
-    if (chainId !== 137) {
-      window.alert('change network to polygon Mainnet')
-      throw new Error('change network to polygon Mainnet')
-    }
+    // const { chainId } = await web3Provider.getNetwork()
+    // if (chainId !== 137) {
+    //   window.alert('change network to polygon Mainnet')
+    //   throw new Error('change network to polygon Mainnet')
+    // }
 
     if (needSigner) {
       const signer = web3Provider.getSigner()
