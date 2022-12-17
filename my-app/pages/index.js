@@ -118,6 +118,15 @@ export default function Home() {
     return web3Provider
   }
 
+  // ==============================
+  useEffect(() => {
+    // Check if window width is less than 500
+    if (window.innerWidth < 1024) {
+      alert('To Connect your Wallet,\n Use a Laptop / Desktop.\n')
+    }
+  }, [])
+  // ==============================
+
   // useEffects are used to react to changes in state of the website
   // The array at the end of function call represents what state changes will trigger this effect
   // In this case, whenever the value of `walletConnected` changes - this effect will be called
@@ -136,10 +145,10 @@ export default function Home() {
 
       getTokenIdsMinted()
 
-      // set an interval to get the number of token Ids minted every 86,400 (24hrs) seconds
+      // set an interval to get the number of token Ids minted every 300(5 mins) seconds
       setInterval(async function () {
         await getTokenIdsMinted()
-      }, 86400 * 1000)
+      }, 300 * 1000)
     }
   }, [walletConnected])
 
