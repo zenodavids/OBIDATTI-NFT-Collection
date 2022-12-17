@@ -129,14 +129,14 @@ export default function Home() {
         toastId.current = toast.warn(
           'To Connect your Wallet, Please Use a Laptop or Desktop.',
           {
-            position: 'bottom-center',
+            position: 'top-right',
             autoClose: 10000,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            theme: 'dark',
+            theme: 'light',
           }
         )
       }
@@ -233,7 +233,7 @@ export default function Home() {
       </Head>
       <div className={styles.main}>
         <ToastContainer
-          position='bottom-center'
+          position='top-right'
           autoClose={5000}
           hideProgressBar={false}
           newestOnTop={false}
