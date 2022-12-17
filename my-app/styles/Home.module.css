@@ -5,6 +5,7 @@
   height: 100vh;
   margin: 0;
   overflow: hidden !important;
+
   font-family: 'Josefin Sans' !important;
   background: linear-gradient(rgba(1, 1, 1, 0.7), rgba(1, 1, 1, 0.6)),
     url('https://source.unsplash.com/1600x900/?endsars');
